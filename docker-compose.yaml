@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  kafka_postgresql_service:
+    build:
+      context: ./service_kafka_postgresql
+      network: host
+    image: kafka_postgresql_service:local
+    container_name: kafka_postgresql_service_container
+    environment:
+      FLASK_APP: ${KAFKA_POSTGRESQL_SERVICE_APP:-kafka_postgresql_service}
+      DEBUG: ${KAFKA_POSTGRESQL_SERVICE_DEBUG:-True}
+
+      KAFKA_HOST: ${KAFKA_HOST}
+      KAFKA_PORT: ${KAFKA_PORT}
+      KAFKA_CONSUMER_USERNAME: ${KAFKA_CONSUMER_USERNAME}
+      KAFKA_CONSUMER_PASSWORD: ${KAFKA_CONSUMER_PASSWORD}
+      KAFKA_CONSUMER_GROUP: ${KAFKA_CONSUMER_GROUP}
+      KAFKA_SOURCE_TOPIC: ${KAFKA_SOURCE_TOPIC}
+
+      PG_WAREHOUSE_HOST: ${PG_WAREHOUSE_HOST}
+      PG_WAREHOUSE_PORT: ${PG_WAREHOUSE_PORT}
+      PG_WAREHOUSE_DBNAME: ${PG_WAREHOUSE_DBNAME}
+      PG_WAREHOUSE_USER: ${PG_WAREHOUSE_USER}
+      PG_WAREHOUSE_PASSWORD: ${PG_WAREHOUSE_PASSWORD}
+
+    network_mode: "bridge"
+    ports:
+      - "5012:5000"
+    restart: unless-stopped
