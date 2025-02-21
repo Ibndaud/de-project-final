@@ -27,7 +27,7 @@ if __name__ == '__main__':
     proc = KafkaPostgresqlMessageProcessor(kafka_consumer, postgresql_repository, app.logger)
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=proc.run, trigger="interval", seconds=60)
+    scheduler.add_job(func=proc.run, trigger="interval", seconds=20)
     scheduler.start()
 
     app.run(debug=True, host='0.0.0.0', use_reloader=False)

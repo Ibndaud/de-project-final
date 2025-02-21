@@ -9,7 +9,7 @@ image:
   repository: cr.yandex/crpf54cr0riqft8f2ts1/kafka_postgresql_service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v2025-02-12-r1"
+  tag: "v2025-02-17-r2"
 
 containerPort: 5000
 

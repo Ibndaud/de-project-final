@@ -1,9 +1,9 @@
-APScheduler
-confluent_kafka
-flask
-psycopg
+APScheduler==3.11.0
+confluent_kafka==2.7.0
+flask==3.1.0
+psycopg==3.2.4
 psycopg-binary
-pydantic
-uuid
-datetime
-typing
+pydantic==2.7.4
+uuid==1.30
+datetime==5.5
+typing==3.7.4.3

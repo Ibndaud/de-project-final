@@ -10,7 +10,7 @@ class KafkaPostgresqlMessageProcessor:
                  consumer: KafkaConsumer, 
                  postgresql_repository: PostgresqlRepository,
                  logger: Logger,
-                 batch_size: int = 10) -> None:
+                 batch_size: int = 40) -> None:
         self._consumer = consumer
         self._postgresql_repository = postgresql_repository
         self._logger = logger
