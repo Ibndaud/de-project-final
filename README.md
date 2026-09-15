@@ -91,6 +91,45 @@ flowchart LR
 - Хранение данных в Vertica с проекциями, сегментацией и сортировкой
 
 ---
+## Как запустить
+
+### 1. Подготовить базы
+
+Выполнить SQL-скрипты из `src/sql/` в соответствующих базах (PostgreSQL — источник и outbox,
+Vertica — схемы `STAGING` и `DWH`, таблица workflow-настроек).
+
+### 2. Запустить сервис Kafka → PostgreSQL
+
+Сервис читает сообщения из Kafka и пишет их в PostgreSQL (outbox pattern).
+Все параметры передаются через переменные окружения (см. `docker-compose.yaml`):
+
+```bash
+# создать .env рядом с docker-compose.yaml
+cat > .env <<EOF
+KAFKA_HOST=<хост>
+KAFKA_PORT=<порт>
+KAFKA_CONSUMER_USERNAME=<логин>
+KAFKA_CONSUMER_PASSWORD=<пароль>
+KAFKA_CONSUMER_GROUP=<группа>
+KAFKA_SOURCE_TOPIC=<топик>
+PG_WAREHOUSE_HOST=<хост>
+PG_WAREHOUSE_PORT=<порт>
+PG_WAREHOUSE_DBNAME=<база>
+PG_WAREHOUSE_USER=<логин>
+PG_WAREHOUSE_PASSWORD=<пароль>
+EOF
+
+docker-compose up -d
+```
+
+### 3. Деплой DAG-ов в Airflow
+
+1. Скопировать `src/dags/` и `src/py/` в каталог DAG-ов Airflow (`AIRFLOW_HOME/dags/`).
+2. Создать подключения: `PG_WAREHOUSE_CONNECTION` (PostgreSQL) и
+   `VERTICA_WAREHOUSE_CONNECTION` (Vertica) — Admin → Connections.
+3. Включить DAG-и в UI: `final_project_postgresql_to_vertica_data_transfer_dag`
+   и `final_project_vertica_datamart_updater_dag`.
+---
 
 ### 2️⃣ Обновление витрины `global_metrics`
 
