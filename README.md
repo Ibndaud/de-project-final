@@ -47,6 +47,14 @@
 - Docker-инфраструктура
 - Helm-конфигурация для деплоя сервиса
 
+```mermaid
+flowchart LR
+    K[("Kafka<br/>транзакции + курсы валют")] --> SVC["kafka_postgresql_service<br/>(Flask, Docker, Helm)"]
+    SVC -->|"outbox pattern"| PG[("PostgreSQL<br/>база-источник")]
+    PG -->|"DAG 1: data_import<br/>01:00 UTC, инкрементально"| STG[("Vertica<br/>STAGING: transactions, currencies")]
+    STG -->|"DAG 2: datamart_update<br/>02:00 UTC"| DM[("Vertica<br/>DWH: global_metrics")]
+    DM --> BI["Аналитика: динамика оборота<br/>по валютам и пользователям"]
+```
 ---
 
 ## Реализованный пайплайн
