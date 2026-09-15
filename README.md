@@ -56,6 +56,30 @@ flowchart LR
     DM --> BI["Аналитика: динамика оборота<br/>по валютам и пользователям"]
 ```
 ---
+## Структура проекта
+
+```text
+.
+├── src/
+│   ├── dags/                            # DAG-и Airflow
+│   │   ├── 1_data_import_dag.py         #   PostgreSQL → Vertica STAGING (01:00 UTC)
+│   │   └── 2_datamart_update_dag.py     #   STAGING → DWH.global_metrics (02:00 UTC)
+│   ├── py/                              # ETL-логика
+│   │   ├── postgresql_vertica_import.py #   загрузка transactions/currencies в staging
+│   │   ├── vertica_datamart_update.py   #   инкрементальное обновление витрины
+│   │   ├── etl_settings_repository.py   #   workflow-настройки (инкрементальность)
+│   │   └── lib/                         #   коннекторы к PostgreSQL и Vertica
+│   ├── sql/                             # DDL/DML: staging, DWH, outbox, merge
+│   └── img/
+├── service_kafka_postgresql/            # сервис Kafka → PostgreSQL (outbox pattern)
+│   ├── src/                             #   Flask-приложение и процессор сообщений
+│   ├── app/                             #   Helm-чарт для деплоя в Kubernetes
+│   ├── dockerfile
+│   └── requirements.txt
+├── docker-compose.yaml                  # запуск сервиса
+└── README.md
+```
+---
 
 ## Реализованный пайплайн
 
