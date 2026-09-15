@@ -1,5 +1,14 @@
 # FinTech Data Platform: ETL, DWH (Vertica)
 
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Apache Airflow](https://img.shields.io/badge/Apache_Airflow-017CEE?logo=apacheairflow&logoColor=white)
+![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?logo=apachekafka&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Vertica](https://img.shields.io/badge/Vertica-DWH-blue)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Helm](https://img.shields.io/badge/Helm-0F1689?logo=helm&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 ## Описание проекта
 
 В рамках проекта реализована полноценная аналитическая платформа для финтех-стартапа, предоставляющего международные банковские переводы.  
